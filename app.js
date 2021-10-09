@@ -4,7 +4,14 @@ const request = require("request");
 const ejsMate = require("ejs-mate");
 const mongoose = require('mongoose');
 const User= require('./models/user');
+const nodemailer= require('nodemailer');
+const bodyParser = require('body-parser');
+
+
 const app = express();
+
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 
 mongoose.connect('mongodb://localhost:27017/vaccineHackathon', {
@@ -83,9 +90,41 @@ app.post("/alerts",async(req, res)=>{
     email,
     pincode
   })
+
   await user.save();
-  
-  res.send("You will start receiving alerts on "+ email + " for "+ pincode+ " shortly.");
+
+
+  //Need to work here
+  // res.send("You will start receiving alerts on "+ email + " for "+ pincode+ " shortly.");
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: 'shemar.schamberger1@ethereal.email', // generated ethereal user
+      pass: 'wPhc777M4TJgKHMbRT', // generated ethereal password
+    },
+  });
+
+  const msg ={
+    from: '"Vaccine Setu" <vaccinesetuindia@example.com>', // sender address
+    to: `${email}`, // list of receivers
+    subject: "Registeration Verification", // Subject line
+    text:"You will start receiving alerts on "+ email + " for "+ pincode+ " shortly." , // plain text body
+    // html: "<b>Hello world?</b>", // html body
+  }
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail(msg);
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  // Preview only available when sending through an Ethereal account
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  res.send("We have sent registration verification email on "+ email);
+
 });
 
 app.get("*", function (req, res) {
