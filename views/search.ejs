@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate')%>
+
+<div id='map' style='width: 100%; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoieXVnYW5zaGRoaXIiLCJhIjoiY2twdXM2ZzB6MGZ6eDJ4cDloZ3Z3bXl2eCJ9.8KBKw4hqgMXdyf6NIm3J0w';
+var map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/dark-v10', // style URL
+    center: [80, 25], // starting position [lng, lat]
+    zoom: 4// starting zoom
+});
+</script>
+
+<div class="container">
+  <div>
+    <h1 style="text-align: center; margin: 20px 0 20px 0">
+      Search for vaccine availability
+    </h1>
+    <div style="width: 30%; margin: 0 auto">
+      <form action="/results" method="GET">
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="number"
+            placeholder="Pin Code"
+            name="pincode"
+            step="1"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control"
+            placeholder="date"
+            name="date"
+            type="date"
+            data-date=""
+            data-date-format="DD MMMM YYYY"
+          />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="javascripts/showMap.js"></script>

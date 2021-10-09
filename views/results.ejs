@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate')%> <% if(typeof data["centers"]!="undefined"){%>
+
+<div class="container mt-2">
+  <div class="column">
+    <% data["centers"].forEach(function(center){ %>
+    <div class="card" id="cards">
+      <div class="card-header bg-success text-white">
+        <h5 class="card-title">
+          <%= center["name"] %> - <%= center["address"] %>
+        </h5>
+        <h6 class="card-subtitle mb-2">
+          <%= center['district_name'] %>, <%= center['state_name'] %>
+        </h6>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Available Vaccines</th>
+              <th scope="col">Age Limit</th>
+              <th scope="col">Vaccine</th>
+              <th scope="col">Slot</th>
+              <th scope="col">Fee Type</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% center["sessions"].forEach(function(session) { %>
+            <tr>
+              <th scope="row"><%= session['date'] %></th>
+              <td><%= session['available_capacity'] %></td>
+              <td><%= session['min_age_limit'] %></td>
+              <td><%= session['vaccine'] %></td>
+              <td><%= center['from'] %> to <%= center['to'] %></td>
+              <td><%= center['fee_type'] %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <a
+          class="btn btn-primary"
+          href="https://selfregistration.cowin.gov.in/"
+          role="button"
+          target="_blank"
+          >Register Now!</a
+        >
+      </div>
+      <% }); %>
+    </div>
+
+    <br />
+
+    <div class="text-center">
+      <a class="btn btn-danger btn-lg" href="/">Search again!</a>
+    </div>
+  </div>
+</div>
+
+<% }else{ %>
+<div class="card">
+  <div class="card-body text-center">
+    <h5 class="card-title">Can't find any data related to your search.</h5>
+    <a class="btn btn-danger btn-lg" href="/">Search again!</a>
+  </div>
+</div>
+
+<% } %>
