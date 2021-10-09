@@ -1,6 +1,9 @@
 {
   "name": "vaccine_basic",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.17.1"
+  },
   "description": "vaccine setu basic app",
   "main": "app.js",
   "scripts": {
