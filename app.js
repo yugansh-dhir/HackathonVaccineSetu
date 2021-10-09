@@ -98,14 +98,28 @@ app.post("/alerts",async(req, res)=>{
   // res.send("You will start receiving alerts on "+ email + " for "+ pincode+ " shortly.");
 
   let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    service: 'gmail',
     auth: {
-      user: 'shemar.schamberger1@ethereal.email', // generated ethereal user
-      pass: 'wPhc777M4TJgKHMbRT', // generated ethereal password
+      user: 'vaccinesetuindia@gmail.com', // generated ethereal user
+      pass: 'vaccine@hare08', // generated ethereal password
     },
+
+
+    // host: "smtp.ethereal.email",
+    // port: 587,
+    // secure: false, // true for 465, false for other ports
+    //  auth: {
+    //   user: 'shemar.schamberger1@ethereal.email', // generated ethereal user
+    //   pass: 'wPhc777M4TJgKHMbRT', // generated ethereal password
+    // },
   });
+
+  // let mailOptions={
+  //   from:'vaccinesetuindia@gmail.com',
+  //   to:`:${email}`,
+  //   subject: "Registeration Verification", // Subject line
+  //   text:"You will start receiving alerts on "+ email + " for "+ pincode+ " shortly." , 
+  // }
 
   const msg ={
     from: '"Vaccine Setu" <vaccinesetuindia@example.com>', // sender address
